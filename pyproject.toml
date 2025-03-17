@@ -1,0 +1,11 @@
+[project]
+name = "mcp-browser-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "browser-use>=0.1.40",
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.4.1",
+]
