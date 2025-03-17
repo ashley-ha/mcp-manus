@@ -14,13 +14,10 @@ import logging
 
 
 
-# Use the right import for StreamHandler
-# StreamHandler is in the main logging module, not in logging.handlers
-# from logging.handlers import StreamHandler  # This is incorrect
-# Instead, use:
+
 
 # Configure a custom stderr handler for all logging
-stderr_handler = logging.StreamHandler(sys.stderr)  # This is correct
+stderr_handler = logging.StreamHandler(sys.stderr)
 stderr_handler.setFormatter(logging.Formatter("%(levelname)-8s [%(name)s] %(message)s"))
 
 # Get the root logger and remove any existing handlers
@@ -43,7 +40,7 @@ for third_party_logger_name in [
     third_party_logger.setLevel(logging.WARNING)  # Only show warnings and errors
     third_party_logger.propagate = False  # Don't propagate to root logger
 
-
+# Configure the path to your google chrome browser (should be this but you can check with `which google chrome` in terminal)
 CHROME_BROWSER = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 browser: Optional[Browser] = None
@@ -148,7 +145,7 @@ async def get_planner_state(ctx: Context) -> str:
     """Get the current browser state and planning context.
     This tool must be executed before execute_actions tool.
     
-    Returns a JSON string in the format:
+    Must return a JSON string in the format:
     {
         "current_state": {
             "evaluation_previous_goal": "Success|Failed|Unknown - Analysis of previous actions",
@@ -170,10 +167,10 @@ async def get_planner_state(ctx: Context) -> str:
             ctx.request_context.lifespan_context["controller"] = controller
         
         state = await browser_context.get_state()
-        elements_text = state.element_tree.clickable_elements_to_string()
+        elements_text = state.element_tree.clickable_elements_to_string() # dom to html step -- basically gets elements on the page and returns for text representation input to llm
         
         # Get available actions from the controller's registry
-        available_actions = controller.registry.get_prompt_description()
+        available_actions = controller.registry.get_prompt_description() # gets the action descriptions from the controller
         
         # Format the response according to system prompt
         response = {
@@ -187,24 +184,24 @@ async def get_planner_state(ctx: Context) -> str:
         
         # Add browser state information
         state_info = f"""
-Current URL: {state.url}
-Title: {state.title}
-Available tabs: {[tab.model_dump() for tab in state.tabs]}
-Interactive elements:
-{elements_text}
+            Current URL: {state.url}
+            Title: {state.title}
+            Available tabs: {[tab.model_dump() for tab in state.tabs]}
+            Interactive elements:
+            {elements_text}
 
-Available Actions:
-{available_actions}
+            Available Actions:
+            {available_actions}
 
-Note: Actions should be executed using the execute_actions tool with the following format:
-{{
-    "name": "action_name",
-    "params": {{
-        "param1": "value1",
-        ...
-    }}
-}}
-"""
+            Note: Actions should be executed using the execute_actions tool with the following format:
+            {{
+                "name": "action_name",
+                "params": {{
+                    "param1": "value1",
+                    ...
+                }}
+            }}
+            """
         return json.dumps(response, indent=2) + "\n\nBrowser State:\n" + state_info
     except Exception as e:
         logger.error(f"Error getting planner state: {str(e)}")
