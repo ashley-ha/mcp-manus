@@ -39,7 +39,7 @@ Create or modify your Claude Desktop configuration file:
 ```json
 {
   "mcpServers": {
-    "mcp": {
+    "browser-use": {
       "command": "uv",
       "args": [
         "--directory",
@@ -52,7 +52,7 @@ Create or modify your Claude Desktop configuration file:
 }
 ```
 
-Replace `/ABSOLUTE/PATH/TO/mcp` with the absolute path to your project directory.
+Replace `/ABSOLUTE/PATH/TO/browser-use` with the absolute path to your project directory.
 
 ### Browser Configuration
 
