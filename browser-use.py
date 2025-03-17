@@ -232,7 +232,6 @@ async def execute_actions(actions: Dict[str, Any], ctx: Context) -> str:
     controller = ctx.request_context.lifespan_context["controller"]
     
     try:
-        context = await browser_initialized_check()
         # Validate input format
         if not isinstance(actions, dict) or "action" not in actions:
             return "Error: Actions must be a dictionary containing 'action' list"
