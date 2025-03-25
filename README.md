@@ -1,5 +1,7 @@
 # MCP Browser Agent
 
+[![smithery badge](https://smithery.ai/badge/@ashley-ha/mcp-manus)](https://smithery.ai/server/@ashley-ha/mcp-manus)
+
 Built at AGI House MCP Hackathon
 
 ## Overview
@@ -17,6 +19,15 @@ Thank you to Browser-Use for their browser agent capabilities that help power ou
 
 ## Installation
 
+### Installing via Smithery
+
+To install Browser Automation Agent for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@ashley-ha/mcp-manus):
+
+```bash
+npx -y @smithery/cli install @ashley-ha/mcp-manus --client claude
+```
+
+### Manual Installation
 1. Clone the repository:
 ```bash
 git clone <repository-url>
