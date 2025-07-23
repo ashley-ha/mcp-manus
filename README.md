@@ -4,6 +4,10 @@
 
 Built at AGI House MCP Hackathon
 
+<a href="https://glama.ai/mcp/servers/@ashley-ha/mcp-manus">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@ashley-ha/mcp-manus/badge" alt="Browser Agent MCP server" />
+</a>
+
 ## Overview
 
 This project is a browser automation agent that uses the Model Context Protocol (MCP) to enable browser interactions. It provides a seamless integration between Claude and browser automation capabilities through our MCP server. 
